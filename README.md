@@ -33,16 +33,23 @@ let headings = [
   "Largest segment (cM)"
 ]
 let csv = [headings.join(CSV_SEPARATOR)];
+function text(e,query) {
+  let r = e.querySelectorAll(query);
+  if (r.length > 0) {
+    return r[0].innerText;
+  }
+  return "";
+}
 let dnaCards = document.getElementsByClassName("dna_match_card");
 for (let dnaCard of dnaCards) {
   let cols = [
-    dnaCard.querySelectorAll('[data-automations="ProfileNameCallout"]')[0].innerText,
-    dnaCard.getElementsByClassName("detail_value")[0].innerText,
-    dnaCard.querySelectorAll('[data-automations="possible_relationships_popup_trigger"]')[0].innerText,
-    dnaCard.querySelectorAll('[data-automations="QualitySharedDnaPer"]')[0].innerText,
-    dnaCard.querySelectorAll('[data-automations="QualitySharedDnaTotal"]')[0].innerText,
-    dnaCard.querySelectorAll('[data-automations="QualitySharedSegmentsTotal"]')[0].innerText,
-    dnaCard.querySelectorAll('[data-automations="QualityLargestSegmentTotal"]')[0].innerText
+    text(dnaCard,'[data-automations="ProfileNameCallout"]'),
+    text(dnaCard,'[class=detail_value]'),
+    text(dnaCard,'[data-automations="possible_relationships_popup_trigger"]'),
+    text(dnaCard,'[data-automations="QualitySharedDnaPer"]'),
+    text(dnaCard,'[data-automations="QualitySharedDnaTotal"]'),
+    text(dnaCard,'[data-automations="QualitySharedSegmentsTotal"]'),
+    text(dnaCard,'[data-automations="QualityLargestSegmentTotal"]')
   ]
   cols = cols.map(function(item,index){
     return item.replaceAll(',','.')
